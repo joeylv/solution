@@ -15,6 +15,9 @@ public class OrderServiceTest {
     @Autowired
     OrderService orderService;
 
+    /**
+     * 监听模式测试
+     */
     @Test
     public void saveOrder() {
         orderService.saveOrder();

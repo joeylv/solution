@@ -31,12 +31,13 @@ public class DemoController {
 
     @RequestMapping("/ms")
     public Object miaosha(String goodCode, String userId) {
-
         return miaoshaService.miaosha(goodCode, userId);
     }
 
     @RequestMapping("/getUsers")
     public List<Map<String, Object>> getDbType() {
+
+//        userService
         String sql = "select * from appuser";
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
         for (Map<String, Object> map : list) {

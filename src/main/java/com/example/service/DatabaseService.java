@@ -6,20 +6,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class DatabaseService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-//    AtomicInteger count = new AtomicInteger(0);
+    AtomicInteger count = new AtomicInteger(0);
 
     /**
      * 秒杀 购买
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean buy(String goodsCode, String userId) {
-
+        System.out.println("数据操作::" + count.incrementAndGet());
         String sql = "update tb_miaosha set  goods_nums = goods_nums -1 where goods_code = '" + goodsCode + "' and goods_nums -1 >=0";
 
         int count = jdbcTemplate.update(sql);
