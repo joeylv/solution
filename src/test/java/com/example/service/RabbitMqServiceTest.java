@@ -22,18 +22,22 @@ public class RabbitMqServiceTest {
     public void concurrentTest() {
 
         CountDownLatch countDownLatch = new CountDownLatch(1);
-
+        Thread[] threads = new Thread[THREAD_NUM];
         for (int i = 0; i < THREAD_NUM; i++) {
-            new Thread(() -> {
+
+            Thread thread = new Thread(() -> {
                 try {
                     countDownLatch.await();
-                } catch (InterruptedException e) {
+                    ResponseEntity<String> result = restTemplate.getForEntity("http://localhost:8080/user/get/1", String.class);
+                    System.out.println(result.toString());
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                ResponseEntity<String> result = restTemplate.getForEntity("", String.class);
-                System.out.println(result);
-            }).start();
+            });
+            threads[i] = thread;
+            thread.start();
+            countDownLatch.countDown();
         }
-
+        System.out.println(":::::::::::::::::End");
     }
 }

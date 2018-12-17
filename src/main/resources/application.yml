@@ -47,7 +47,7 @@ spring:
 
   ## RABBIT (RabbitProperties)
   rabbitmq:
-    host: localhost
+    host: 192.168.12.170
     username: guest
     password: guest
     virtual-host: guest
